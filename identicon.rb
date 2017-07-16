@@ -22,7 +22,7 @@ hue = color.to_i(16) * 24
 
 cells.times do |i|
   cells.times do |j|
-    png[j,i] = display[i/divisor][j/divisor] == 1 ? ChunkyPNG::Color.from_hsl(hue,1,0.65) : ChunkyPNG::Color.from_hsl(0,1,1)
+    png[j,i] = display[i/divisor][j/divisor] == 1 ? ChunkyPNG::Color.from_hsl(hue,1,0.65) : ChunkyPNG::Color.from_hsl(0,1,1,0)
   end
 end
 
