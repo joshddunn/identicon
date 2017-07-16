@@ -3,7 +3,7 @@ require 'chunky_png'
 
 username = "joshddunn"
 
-digest = Digest::MD5.new
+digest = Digest::SHA256.new
 digest.update username
 hash = digest.hexdigest[0..15].scan(/.{1,3}/)
 color = hash.pop
