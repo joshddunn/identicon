@@ -3,8 +3,9 @@ require 'chunky_png'
 
 height = ARGV[0].to_i
 username = ARGV[1]
+circles = ARGV[2] || false
 
-png_size = 200
+png_size = 800
 
 if username.nil? or height.nil? or height > 15 or height % 2 == 0
   abort("Your command line arguments are incorrect.")
@@ -33,7 +34,12 @@ hue = color.to_i(16) * 360 / 15
 
 cells.times do |i|
   cells.times do |j|
-    png[j,i] = display[i/divisor][j/divisor] == 1 ? ChunkyPNG::Color.from_hsl(hue,1,0.65) : ChunkyPNG::Color.from_hsl(0,1,1,0)
+    x = ( i % divisor - divisor / 2.0)
+    y = ( j % divisor - divisor / 2.0)
+    len = Math.sqrt(x**2 + y**2) 
+    if !circles || (len < divisor / 2 && len > divisor / 3) 
+      png[j,i] = display[i/divisor][j/divisor] == 1 ? ChunkyPNG::Color.from_hsl(hue,1,0.65) : ChunkyPNG::Color.from_hsl(0,1,1,0)
+    end
   end
 end
 

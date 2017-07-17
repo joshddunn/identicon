@@ -2,7 +2,7 @@ Simple script that converts a username into a github-like identicon.
 
 Can be run from the command line using
 ```
-ruby identicon.rb HEIGHT USERNAME
+ruby identicon.rb HEIGHT USERNAME CIRCLES(TRUE/FALSE)
 ```
 The following identicons are generated using my username:
 
@@ -30,6 +30,6 @@ HEIGHT = 13
 
 ![alt text](images/identicon13.png "identicon13")
 
-HEIGHT = 15
+HEIGHT = 15. Getting funky with circles.
 
 ![alt text](images/identicon15.png "identicon15")
