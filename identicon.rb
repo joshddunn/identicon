@@ -1,24 +1,35 @@
 require 'digest'
 require 'chunky_png'
 
-username = "joshddunn"
+height = ARGV[0].to_i
+username = ARGV[1]
 
-digest = Digest::SHA256.new
+png_size = 200
+
+if username.nil? or height.nil? or height > 15 or height % 2 == 0
+  abort("Your command line arguments are incorrect.")
+end
+
+width = height / 2 + 1
+
+digest = Digest::SHA512.new
+
 digest.update username
-hash = digest.hexdigest[0..15].scan(/.{1,3}/)
+hash = digest.hexdigest[0..width * height].scan(Regexp.new(".{1,#{width}}"))
 color = hash.pop
+
 display = []
 
 hash.each do |v|
   a = v.split("").map { |e| e.to_i(16) % 2 }
-  display << a.concat(a[0..1].reverse)
+  display << a.concat(a[0..width-2].reverse)
 end
 
-cells = 200
-divisor = cells / 5
+cells = png_size - png_size % height
+divisor = cells / height
 png = ChunkyPNG::Image.new(cells, cells, ChunkyPNG::Color::TRANSPARENT)
 
-hue = color.to_i(16) * 24
+hue = color.to_i(16) * 360 / 15 
 
 cells.times do |i|
   cells.times do |j|
@@ -26,4 +37,4 @@ cells.times do |i|
   end
 end
 
-png.save('identicon.png', :interlace => true)
+png.save("images/identicon#{height}.png", :interlace => true)
